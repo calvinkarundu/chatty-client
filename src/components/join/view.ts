@@ -1,53 +1,61 @@
 import {
+  a,
+  button,
   div,
   form,
   h2,
-  a,
-  p,
-  label,
   input,
-  button,
+  label,
+  makeDOMDriver,
+  p,
   span,
-  makeDOMDriver
 } from '@cycle/dom';
 
 import * as styles from './styles';
 
-function renderPage () {
+function renderForm () {
+  return form(`.join-chatty-form ${styles.joinForm}`, [
+    div('.grid-x grid-margin-x', [
+      div('.small-12 cell', [
+        div(`.input-group`, [
+          input(
+            `.input-group-field ${styles.joinInput}`,
+            { attrs: { type: 'text', name: 'screenName', placeholder: 'Enter Screen Name...' } },
+          ),
+          div('.input-group-button', [
+            input(
+              `.button ${styles.joinButton}`,
+              { attrs: { type: 'submit', value: 'Join' }},
+            )
+          ])
+        ]),
+      ]),
+    ])
+  ])
+}
+
+function renderPage (data) {
+  console.log(data);
   const vTree = div(`.${styles.page}`, [
     div(`.${styles.pageBackground}`),
     div(`.grid-container fluid ${styles.fullHeight}`, [
       div(`.grid-x`, [
         div(`.medium-4 cell ${styles.joinCard}`, [
+          // Header
           div(`.${styles.joinCardHeader}`, [
             h2(`.${styles.joinCardTitle}`, ['Chatty']),
           ]),
+          // Body
           div(`.${styles.joinCardBody}`, [
-            form(`.join-chatty-form ${styles.joinForm}`, [
-              div('.grid-x grid-margin-x', [
-                div('.small-12 cell', [
-                  div(`.input-group`, [
-                    input(
-                      `.input-group-field ${styles.joinInput}`,
-                      { attrs: { type: 'text', placeholder: 'Enter Screen Name...' } },
-                    ),
-                    div('.input-group-button', [
-                      input(
-                        `.button ${styles.joinButton}`,
-                        { attrs: { type: 'submit', value: 'Join' }},
-                      )
-                    ])
-                  ]),
-                ]),
-              ])
-            ])
+            renderForm(),
           ]),
+          // Footer
           div(`.${styles.joinCardFooter}`, [
             p(`.${styles.footerText}`, [
               'A ',
               a(
                 { attrs: { href: 'https://cycle.js.org/', target: '_blank' }},
-                ['cycle.js']
+                ['Cycle.js']
               ),
               ' experiment by ',
               a(
