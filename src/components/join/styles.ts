@@ -1,4 +1,4 @@
-import { style, media } from 'typestyle';
+import { style, media, keyframes } from 'typestyle';
 
 import {
   rgba,
@@ -17,6 +17,14 @@ import * as config from '../../utilities/styleConfig';
 
 export const fullHeight = style({
   height: percent(100),
+});
+
+export const show = style({
+  display: 'block',
+});
+
+export const hide = style({
+  display: 'none',
 });
 
 export const page = style({
@@ -78,27 +86,49 @@ export const joinForm = style({
   padding: 0,
 });
 
-export const joinInput = style({
-  borderRight: important('none'),
-  borderTopRightRadius: px(0),
-  borderBottomRightRadius: px(0),
-  $nest: {
-    '&:focus': {
-      boxShadow: 'none',
-      borderColor: config.colors.primary,
-    }
+export const joinInput = style(
+  config.baseInputStyles,
+  {
+    borderRight: important('none'),
+    borderTopRightRadius: px(0),
+    borderBottomRightRadius: px(0),
   }
+);
+
+const borderAnimation = keyframes({
+  'to': { borderColor: config.colors.alert },
+});
+
+export const inputErr = style({
+  animationName: borderAnimation,
+  animationDuration: '.3s',
+  animationFillMode: 'forwards',
 });
 
 export const joinButton = style({
   borderLeft: 'none',
   backgroundColor: config.colors.primary,
+  outline: 'none',
   paddingLeft: em(2),
   paddingRight: em(2),
   borderColor: important(`${config.colors.primary}`),
   borderTopLeftRadius: important('0'),
   borderBottomLeftRadius: important('0'),
 });
+
+export const joinFormResponseWrapper = style({
+  textAlign: 'center',
+  position: 'relative',
+  top: px(-5),
+});
+
+export const joinFormResponse = style(
+  config.baseBodyFontStyles,
+  {
+    color: config.colors.alert,
+    fontSize: em(0.875),
+  }
+);
 
 export const joinCardFooter = style({
   paddingTop: px(10),
@@ -113,13 +143,13 @@ export const footerText = style(
   config.baseBodyFontStyles,
   {
     fontSize: em(0.875),
-    color: config.colors.secondaryDark,
+    color: config.colors.bodyFontLight,
     margin: px(0),
     $nest: {
       '> a': {
         color: 'inherit',
         borderBottom: '1px dotted',
-        borderColor: config.colors.secondaryDark,
+        borderColor: config.colors.bodyFontLight,
         $nest: {
           '&:hover': {
             color: config.colors.primary,

@@ -13,13 +13,13 @@ import {
 
 import * as styles from './styles';
 
-function renderForm () {
+function renderForm (data) {
   return form(`.join-chatty-form ${styles.joinForm}`, [
     div('.grid-x grid-margin-x', [
       div('.small-12 cell', [
         div(`.input-group`, [
           input(
-            `.input-group-field ${styles.joinInput}`,
+            `.input-group-field ${styles.joinInput} ${data.error.length > 0 ? styles.inputErr : ''}`,
             { attrs: { type: 'text', name: 'screenName', placeholder: 'Enter Screen Name...' } },
           ),
           div('.input-group-button', [
@@ -29,13 +29,15 @@ function renderForm () {
             )
           ])
         ]),
+        div(`.${styles.joinFormResponseWrapper} ${data.error.length > 0 ? styles.show : styles.hide}`, [
+          span(`.${styles.joinFormResponse}`, [`${data.error}`])
+        ])
       ]),
     ])
   ])
 }
 
 function renderPage (data) {
-  console.log(data);
   const vTree = div(`.${styles.page}`, [
     div(`.${styles.pageBackground}`),
     div(`.grid-container fluid ${styles.fullHeight}`, [
@@ -47,7 +49,7 @@ function renderPage (data) {
           ]),
           // Body
           div(`.${styles.joinCardBody}`, [
-            renderForm(),
+            renderForm(data),
           ]),
           // Footer
           div(`.${styles.joinCardFooter}`, [

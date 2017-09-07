@@ -6,9 +6,11 @@ export const colors = {
   primary: '#4ca2cd',
   primaryLight: '#fff',
   secondary: '#eaf0f3',
-  secondaryDark: '#888',
+  secondaryDark: '#cacaca',
   alert: '#e7202a',
   success: '#2c963f',
+  bodyFont: '#222',
+  bodyFontLight: '#888',
 };
 
 export const fonts = {
@@ -27,6 +29,16 @@ export const baseBodyFontStyles = {
   fontWeight: 400,
   fontFamily: fonts.family.sourceSansPro,
 };
+
+export const baseInputStyles = {
+  borderColor: colors.secondaryDark,
+  $nest: {
+    '&:focus': {
+      boxShadow: 'none',
+      borderColor: colors.primary,
+    }
+  }
+}
 
 export const mediaQueries = {
   small: {

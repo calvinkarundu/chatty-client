@@ -4,10 +4,11 @@ export default function model (props$, action$) {
   const join$ = action$
     .filter((action) => action.type === 'join')
     .map((action) => {
-      if (action.payload.username && action.payload.username.trim().length > 0) {
+      if (action.payload.screenName && action.payload.screenName.trim().length > 0) {
         return {
           joined: true,
           payload: action.payload,
+          error: '',
         }
       }
 
